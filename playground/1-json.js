@@ -4,7 +4,7 @@ const fs = require("fs")
     title: "el enemigo es el ego",
     author: "tomas",
 }*/
-//const bookJSON = JSON.stringify(book) /* JSON array */  
+//const bookJSON = JSON.stringify(book) /* JSON array */  cd
 /* console.log(bookJSON) //console.log(bookJSON.title) --> undefined
 const returnobject = JSON.parse(bookJSON) /* Javascript object 
 console.log(returnobject.author)*/
