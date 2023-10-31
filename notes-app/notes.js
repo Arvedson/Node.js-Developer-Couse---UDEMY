@@ -1,24 +1,6 @@
 const fs = require("fs")
 const chalk = require("chalk")
-const { title, argv } = require("process")
 
-
-
-const getNotes = function () {
-    return "your notes..."
-}
-
-const loadNotes = () => { //Lee los archivos en la carpeta asignada
-    try{
-
-        const dataBuffer = fs.readFileSync("notes.json")
-        const dataJSON = dataBuffer.toString()
-        return JSON.parse(dataJSON)
-
-    } catch (error){
-        return []
-    }
-}
 
 const addNote = (title, body) =>{ //antes de añadir una nota se verifica si ya existe una igual para no añadirla
     const notes = loadNotes()
@@ -40,6 +22,19 @@ const addNote = (title, body) =>{ //antes de añadir una nota se verifica si ya 
         console.log(chalk1)  // -forma incorrecta-
     }
 }
+
+const loadNotes = () => { //Lee los archivos en la carpeta asignada
+    try{
+
+        const dataBuffer = fs.readFileSync("notes.json")
+        const dataJSON = dataBuffer.toString()
+        return JSON.parse(dataJSON)
+
+    } catch (error){
+        return []
+    }
+}
+
 
 const removeNote = (title) => { 
     const notes = loadNotes();
@@ -82,7 +77,6 @@ const readNote = (title) => {
 }
 
 module.exports = {
-    getNotes : getNotes,
     addNote : addNote,
     removeNote : removeNote,
     listNotes: listNotes,

@@ -1,9 +1,7 @@
 const notes = require("./notes.js")
 const chalk = require("chalk")
 const yargs = require("yargs")
-const {removeNote} = require("./notes.js")
-const {listNotes} = require("./notes.js")
-const {readNote} = require("./notes.js")
+
 
 // modificar yargs version
 yargs.version("1.1.0")
@@ -30,7 +28,6 @@ yargs.command({
 
     }
 })
-
 
 //Create remove command
 yargs.command({
