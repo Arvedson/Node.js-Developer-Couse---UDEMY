@@ -2,13 +2,14 @@ const notes = require("./notes.js")
 const chalk = require("chalk")
 const yargs = require("yargs")
 const {removeNote} = require("./notes.js")
+const {listNotes} = require("./notes.js")
+const {readNote} = require("./notes.js")
 
 // modificar yargs version
 yargs.version("1.1.0")
 
 
 // add, remove, read, list (notes)
-
 // Create add command
 yargs.command({
     command : "add",
@@ -47,24 +48,32 @@ yargs.command({
     }
 })
 
+//Create command list
+yargs.command({
+    command: "list",
+    description: "Enlistar nota", 
+    handler: () => {
+        notes.listNotes()
+    }
+})
+
 
 //Create read command
 yargs.command({
     command: "read",
     description: "Leer nota",
-    handler: () => {
-        console.log("Leyendo nota")
+    bulder: {
+        title: {
+            describe: "Leyendo nota",
+            demandOption: true,
+            type: "string",
+        },
+    },
+    handler: (argv) => {
+        notes.readNote(argv.title)
     }
 })
 
-//Create command list
-yargs.command({
-    command: "list",
-    description: "Enlistar nota",
-    handler: () => {
-        console.log("Enlistando nota")
-    }
-})
 
 yargs.parse()
 

@@ -1,5 +1,7 @@
 const fs = require("fs")
 const chalk = require("chalk")
+const { title, argv } = require("process")
+
 
 
 const getNotes = function () {
@@ -20,9 +22,10 @@ const loadNotes = () => { //Lee los archivos en la carpeta asignada
 
 const addNote = (title, body) =>{ //antes de añadir una nota se verifica si ya existe una igual para no añadirla
     const notes = loadNotes()
-    const notesDuplicates = notes.filter((note) => {
-        return note.title === title 
-    })
+    const notesDuplicates = notes.filter((note) => note.title === title)
+    //const notesDuplicates = notes.filter((note) => {
+    //    return note.title === title 
+    //})
 
     if(notesDuplicates.length === 0){
         notes.push({
@@ -55,8 +58,33 @@ const saveNotes = (notes) => { //guarda las notas creadas en la carpeta asignada
     fs.writeFileSync("notes.json", dataJSON)
 }
 
+const listNotes = () => {
+    const notes = loadNotes()
+    console.log(chalk.yellow("Tus notas son las siguientes:"))
+
+    notes.forEach((note) => {
+        console.log(note.title)
+    })
+}
+
+const readNote = (title) => {
+
+    const notes = loadNotes()
+
+    const notaEncontrada = notes.find((note) => note.title === title)
+
+    if(notaEncontrada){
+        console.log(chalk.blue(notaEncontrada.title))
+        console.log(notaEncontrada.body)
+    } else {
+        console.log(chalk.red("nota no encontrada"))
+    }
+}
+
 module.exports = {
     getNotes : getNotes,
     addNote : addNote,
-    removeNote : removeNote
+    removeNote : removeNote,
+    listNotes: listNotes,
+    readNote: readNote,
 }
