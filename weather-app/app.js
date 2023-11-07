@@ -1,25 +1,27 @@
-// node´s asynchronous non blocking model:
+const request = require("request")
 
-console.log("starting")
+const url = "https://api.meteomatics.com/2023-11-05T18:50:00.000-06:00/t_min_2m_1h:C,wind_speed_mean_FL10_1h:bft/25.542698,-103.410512/json?model=mix"
 
-setTimeout(()=> {
-    console.log("timer de 2 segundos")
+const username = "node_arvedson_tomas"
+const password = "c1K7LW1y3y"
 
-}, 2000)
+request({
+  url: url,
+  headers: {
+    "Authorization": `Basic ${btoa(username + ":" + password)}`,
+  },
+}, (error, response) => {
 
-setTimeout(() => {
-    console.log("timer de 0 segundos")
-}, 0)
+  const data = JSON.parse(response.body)
+  console.log(data)
 
-console.log("stoping")
+  const minTemperature = data.data[0].coordinates[0].dates[0].value;
+  const windSpeed = data.data[1].coordinates[0].dates[0].value;
+
+  console.log("La temperatura actual en Torreon es de:",minTemperature, "°C")
+  console.log("La velocidad del viento es de", windSpeed, "km/h")
+
+});
 
 
 
-/* returns:
-
-starting
-stoping
-timer de 0 segundos
-timer de 2 segundos
-
-*/
