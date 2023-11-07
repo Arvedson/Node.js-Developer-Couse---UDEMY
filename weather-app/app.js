@@ -1,6 +1,8 @@
 const request = require("request")
+const axios = require('axios');
 
-const url = "https://api.meteomatics.com/2023-11-05T18:50:00.000-06:00/t_min_2m_1h:C,wind_speed_mean_FL10_1h:bft/25.542698,-103.410512/json?model=mix"
+
+const url = "https://api.meteomatics.com/2023-11-06T18:40:00.000-06:00/t_2m:C,wind_speed_FL10:kmh/25.542698,-103.410512/json?model=mix"
 
 const username = "node_arvedson_tomas"
 const password = "c1K7LW1y3y"
@@ -23,5 +25,15 @@ request({
 
 });
 
+//-------------------------//
 
+axios.get("https://api.opencagedata.com/geocode/v1/json?key=3408d91c500640649a423dfaa23babe2&q=Torreon+1%2C+Coahuila%2C")
+  .then(response => {
+    const lat = response.data.results[0].geometry.lat;
+    const lng = response.data.results[0].geometry.lng;
+    console.log(lat,lng)
+  }).catch(error => {
+    console.log(error);
+  });
 
+  //----------------------//
