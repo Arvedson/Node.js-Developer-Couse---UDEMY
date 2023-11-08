@@ -14,15 +14,23 @@ request({
   },
 }, (error, response) => {
 
-  const data = JSON.parse(response.body)
-  console.log(data)
+  if (error){
+    console.log("No es posible conectarse con este servicio")
 
-  const minTemperature = data.data[0].coordinates[0].dates[0].value;
-  const windSpeed = data.data[1].coordinates[0].dates[0].value;
+  } else if (response.body.error) {
+    console.log("Input invalido")
 
-  console.log("La temperatura actual en Torreon es de:",minTemperature, "°C")
-  console.log("La velocidad del viento es de", windSpeed, "km/h")
+  } else {
+    const data = JSON.parse(response.body)
+    console.log(data)
+  
+    const minTemperature = data.data[0].coordinates[0].dates[0].value;
+    const windSpeed = data.data[1].coordinates[0].dates[0].value;
+  
+    console.log("La temperatura actual en Torreon es de:",minTemperature, "°C")
+    console.log("La velocidad del viento es de", windSpeed, "km/h")
 
+  }
 });
 
 //-------------------------//
@@ -33,7 +41,7 @@ axios.get("https://api.opencagedata.com/geocode/v1/json?key=3408d91c500640649a42
     const lng = response.data.results[0].geometry.lng;
     console.log(lat,lng)
   }).catch(error => {
-    console.log(error);
+    console.log("Input invalido");
   });
 
   //----------------------//
