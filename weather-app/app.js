@@ -1,5 +1,6 @@
 const request = require("request")
-const axios = require('axios');
+const geocode = require("./utils/geocode")
+
 
 
 const url = "https://api.meteomatics.com/2023-11-06T18:40:00.000-06:00/t_2m:C,wind_speed_FL10:kmh/25.542698,-103.410512/json?model=mix"
@@ -7,7 +8,7 @@ const url = "https://api.meteomatics.com/2023-11-06T18:40:00.000-06:00/t_2m:C,wi
 const username = "node_arvedson_tomas"
 const password = "c1K7LW1y3y"
 
-request({
+/* request({
   url: url,
   headers: {
     "Authorization": `Basic ${btoa(username + ":" + password)}`,
@@ -31,10 +32,11 @@ request({
     console.log("La velocidad del viento es de", windSpeed, "km/h")
 
   }
-});
+}); */
 
 //-------------------------//
 
+/*
 axios.get("https://api.opencagedata.com/geocode/v1/json?key=3408d91c500640649a423dfaa23babe2&q=Torreon+1%2C+Coahuila%2C")
   .then(response => {
     const lat = response.data.results[0].geometry.lat;
@@ -43,5 +45,16 @@ axios.get("https://api.opencagedata.com/geocode/v1/json?key=3408d91c500640649a42
   }).catch(error => {
     console.log("Input invalido");
   });
+  */
 
-  //----------------------//
+
+  // 
+  geocode("barcelona españa", (error, coordinates) => {
+    if (error) {
+      console.error("Error:", error);
+    } else {
+      console.log("Latitud:", coordinates.lat);
+      console.log("Longitud:", coordinates.lng);
+      console.log("Ubicacion:", coordinates.ubicación )
+    }
+  });
