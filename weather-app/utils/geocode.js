@@ -8,12 +8,12 @@ const geocode = (address, callback) => {
       .then(response => {
         // verificamos los datos en caso de que haya una respuesta
         if (response.data && response.data.results && response.data.results.length > 0) {
-          // Obtener las coordenadas (latitud y longitud) de la primera ubicación encontrada
+          // obtener las coordenadas (latitud, longitud y ubicacion) del lugar encontrado
           const lat = response.data.results[0].geometry.lat;
           const lng = response.data.results[0].geometry.lng;
-          const ubicación= response.data.results[0].formatted;
+          const ubicacion = response.data.results[0].formatted;
           // se llama un callback en forma de objeto porque esa es la forma en que se estan recibiendo los datos 
-          callback(null, { lat, lng, ubicación });
+          callback(null, { lat, lng, ubicacion });
         } else {
           // si la respuesta no encuentra los datos validos
           callback("Direccion no encontrada", null);
@@ -26,6 +26,9 @@ const geocode = (address, callback) => {
 }
 
 module.exports = geocode
+
+
+
 
 
 
