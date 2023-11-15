@@ -3,10 +3,8 @@ const request = require("request")
 
 
 const forecast = (coordinates, callback) =>{
-
  
     const encodedCoordinates = encodeURIComponent(`${coordinates.lat},${coordinates.lng}`);
-    
     
     const url = `http://api.weatherapi.com/v1/current.json?key=c8dd6fbba51b497dbc220422231211&q=${encodedCoordinates}&aqi=no`;
     request({

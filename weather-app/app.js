@@ -1,8 +1,8 @@
 const request = require("request")
-
 const geocode = require("./utils/geocode")
-
 const forecast = require("./utils/forecast")
+const fs = require("fs")
+
 
 /*request({
   url: url
@@ -21,11 +21,9 @@ const forecast = require("./utils/forecast")
   }
 })*/
 
-
 /*const url = "https://api.meteomatics.com/2023-11-10T16:45:00.000-06:00/t_apparent:C,relative_humidity_2m:p/4.099917,-72.9088133/json?model=mix"
 const username = "node_arvedson_tomas"
 const password = "c1K7LW1y3y"
-
 request({
   url: url,
   headers: {
@@ -61,21 +59,72 @@ axios.get("https://api.opencagedata.com/geocode/v1/json?key=3408d91c500640649a42
     console.log(lat,lng)
   }).catch(error => {
     console.log("Input invalido");
-  });*/
+  });
+*/
   
-geocode("torreon mexico", (error, coordinates) => {
-  if (error) {
-    console.error("Error:", error);
-  } else {
-    console.log("Latitud:", coordinates.lat);
-    console.log("Longitud:", coordinates.lng);
-    console.log("Ubicacion:", coordinates.ubicacion);
-    
-    forecast(coordinates, (temperatura, humedad, ubicacion) => {
-      console.log("La temperatura en", ubicacion, "es de", temperatura, "C°, y la humedad es de", humedad, "%");
-    });   
-  }
-});
+
+const args = process.argv.slice(2)
+
+if (args.length === 0){
+  console.log("Introduzca una ubicacion")
+} else {
+  geocode(args, (error, coordinates) => {
+
+
+    if (error) {
+      console.error("Error:", error);
+    } else {
+      console.log("Latitud:", coordinates.lat);
+      console.log("Longitud:", coordinates.lng);
+      console.log("Ubicacion:", coordinates.ubicacion);
+      
+      forecast(coordinates, (temperatura, humedad, ubicacion) => {
+        if(error){
+          console.log("Error")
+        } else {
+          console.log("La temperatura en", ubicacion, "es de", temperatura, "C°, y la humedad es de", humedad, "%");
+        }
+      });   
+    }
+  });
+  
+}
+
+
+/*const args = process.argv.slice(2)
+if (args.length < 2) {
+  console.log('Uso: node app.js <nombre_del_archivo> <contenido_a_pasara_la_funcion>');
+} else {
+  const fileName = args[0];
+  const content = args.slice(1).join(' ');
+
+  // Llama a tu función con nombre
+  miFuncion(fileName, content);
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //----------------------------//
