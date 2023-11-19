@@ -43,7 +43,6 @@ console.log(area)*/
 const scaneo = (scanId, { stock, costo }) => {
     console.log(scanId, stock, costo)
 }
-
 scaneo("0001", producto)
 
 
