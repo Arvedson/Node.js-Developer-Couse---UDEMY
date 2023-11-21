@@ -4,15 +4,27 @@ const app = express()
 
 
 app.get("/", (req, res) => {
-    res.send("Hola mundo! con Express")
+    res.send("<h1>Hola mundo! con Express</h1>") //send back HTML
 })
 
 app.get("/Inicio", (req, res) =>{
-    res.send("Pagina principal")
+    res.send({ // send back JSON
+        nombre: "Tomas",
+        edad: 29,
+        localidad: "Torreon",
+    })
+})
+
+app.get("/about", (req, res) =>{
+    res.send("<h1>Acerca de</h1>")
 })
 
 app.get("/weather", (req, res) =>{
-    res.send("El clima")
+    res.send({
+        ubi: "torreon",
+        temperatura: 10, 
+        windspeed: 15,
+    })
 })
 
 app.get("/help", (req, res) => {
