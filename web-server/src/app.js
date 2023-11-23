@@ -14,7 +14,21 @@ app.use(express.static(publicDirectoryPath)) //middleware express.static: se enc
 // siguiente funcion middleware, tambien controlan las secuencias en las que se van a ejecutar, los condicionamientos y funcionalidades 
 // con los cuales seran procesados los datos dependiendo de la finalidad
 
+app.set("view engine", "hbs")
 
+// un template/plantilla es una herramienta que nos permite organizar y reutilizar archivos rendereables, rellenables con datos, dependiendo del usuario y del servidor
+// son herramientas que promueven la organizacion y reutyilizacion de estructuras de documentos. comunmente estos documentos son html, css, js 
+// existen los template engines, los cuales se encargan de insertar codigo bajo sus propias sintaxis. algunos ejemplos de estos modulos:
+// Handlebars: File Extension: .hbs or .handlebars.  ------  EJS (Embedded JavaScript): File Extension: .ejs.   ------   Pug (formerly Jade): File Extension: .pug
+// cada uno de estos motores de plantillas tienen funciones espcificas ya sea desde injectar codigo javascript <% %>, la insercion de datos {{ }} y mucho mas. 
+
+
+app.get("", (req, res) => { // aqui se esta renderizando un documento html (hbo template engine module), la estructura de este documento se toma como plantilla para poderle insertar codigo en donde sea deseado. 
+    res.render("index", {
+        title: "weather app",
+        name: "tomas"
+    }) // la funcion render lleva como parametros la ruta/nombre del archivo y los valores a introducir
+})
 
 
 
