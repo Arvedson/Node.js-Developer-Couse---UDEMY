@@ -8,7 +8,7 @@ const express = require("express")
 
 const app = express()
 const publicDirectoryPath = path.join(__dirname, "../public")
-app.use(express.static(publicDirectoryPath)) //middleware express.static: se encarga de trabajar con archivos "estaticos" css, js, html, ts, jsx, etc.
+app.use(express.static(publicDirectoryPath)) //middleware express.static: se encarga de trabajar con archivos "estaticos" css, js, html, ts, jsx, hbo etc.
 
 // un middleware es una funcion que tiene acceso a al objeto de solicitud de "req" y respuesta "res", tambien tienen acceso a la
 // siguiente funcion middleware, tambien controlan las secuencias en las que se van a ejecutar, los condicionamientos y funcionalidades 
@@ -28,6 +28,20 @@ app.get("", (req, res) => { // aqui se esta renderizando un documento html (hbo 
         title: "weather app",
         name: "tomas"
     }) // la funcion render lleva como parametros la ruta/nombre del archivo y los valores a introducir
+})
+
+
+app.get("/about", (req, res) => {
+    res.render("about", {
+        title: "About me",
+        name: "Tomas"
+    })
+})
+
+app.get("/help", (req, res) =>{
+    res.render("help",{
+        ayuda: "para obtener informacion marque al 369"
+    })
 })
 
 
