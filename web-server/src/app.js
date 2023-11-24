@@ -42,7 +42,6 @@ app.get("", (req, res) => { // aqui se esta renderizando un documento html (hbo 
     }) // la funcion render lleva como parametros la ruta/nombre del archivo y los valores a introducir
 })
 
-
 app.get("/about", (req, res) => {
     res.render("about", {
         title: "About me",
@@ -58,6 +57,22 @@ app.get("/help", (req, res) =>{
     })
 })
 
+app.get("/help/*", (req, res) =>{
+    res.render("help2", {
+        title: "404",
+        msg: "para pedir mas informacion soporte al cliente",
+        name: "tomas"
+    })
+})
+
+app.get("*", (req, res) =>{
+    
+    res.render("404", {
+        title: "error 404 Page not found",
+        msg: "esta pagina no existe",
+        name: "tomas"
+    })
+})
 
 
 //---------------------------------//
