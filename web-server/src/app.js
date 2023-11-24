@@ -1,20 +1,32 @@
+const hbs = require("hbs")
 const path = require("path")
 const express = require("express") 
+const app = express()
 
+//https://expressjs.com/
 
 // console.log(__dirname)
 // console.log(path.join(__dirname, "../public"))
 
-
-const app = express()
+//define paths for express config
 const publicDirectoryPath = path.join(__dirname, "../public")
+const viewspath = path.join(__dirname, "../templates/views")
+const partialsPath = path.join(__dirname, "../templates/partials")
+
+
+// setup static directory to serve 
 app.use(express.static(publicDirectoryPath)) //middleware express.static: se encarga de trabajar con archivos "estaticos" css, js, html, ts, jsx, hbo etc.
+
 
 // un middleware es una funcion que tiene acceso a al objeto de solicitud de "req" y respuesta "res", tambien tienen acceso a la
 // siguiente funcion middleware, tambien controlan las secuencias en las que se van a ejecutar, los condicionamientos y funcionalidades 
 // con los cuales seran procesados los datos dependiendo de la finalidad
 
+
+//setup handlebars engine and views location
 app.set("view engine", "hbs")
+app.set("views", viewspath)
+hbs.registerPartials(partialsPath)
 
 // un template/plantilla es una herramienta que nos permite organizar y reutilizar archivos rendereables, rellenables con datos, dependiendo del usuario y del servidor
 // son herramientas que promueven la organizacion y reutyilizacion de estructuras de documentos. comunmente estos documentos son html, css, js 
@@ -40,6 +52,8 @@ app.get("/about", (req, res) => {
 
 app.get("/help", (req, res) =>{
     res.render("help",{
+        title: "help",
+        name: "tomas",
         ayuda: "para obtener informacion marque al 369"
     })
 })
@@ -85,3 +99,6 @@ const puerto = 3000;
 app.listen(puerto, () => {
     console.log("Server is up on port 3000")
 })
+
+
+//en resumen, usamos handlebars para poder renderear contenido dinamico 
