@@ -57,6 +57,33 @@ app.get("/help", (req, res) =>{
     })
 })
 
+app.get("/products", (req, res) =>{
+    if(!req.query.search){
+
+        return res.send({
+            error:"Please provide a search tearm"
+        })
+    }
+    console.log(req.query.search)
+    res.send({
+        products: [],
+    })
+})
+
+app.get("/weather", (req, res) =>{
+
+    if(!req.query.address){
+        res.send({
+            error: "Invalid address"
+        })
+    } else {
+        res.send({
+            forecast: req.query.address
+        })
+    }
+    console.log(req.query)
+})
+
 app.get("/help/*", (req, res) =>{
     res.render("help2", {
         title: "404",
@@ -73,6 +100,7 @@ app.get("*", (req, res) =>{
         name: "tomas"
     })
 })
+
 
 
 //---------------------------------//
@@ -98,13 +126,14 @@ app.get("/Inicio", (req, res) =>{
     res.send("<h1>Acerca de</h1>")
 })*/
 
-app.get("/weather", (req, res) =>{
+/*app.get("/weather", (req, res) =>{
+
     res.send({
         ubi: "torreon",
         temperatura: 10, 
         windspeed: 15,
     })
-})
+})*/
 
 /*app.get("/help", (req, res) => {
     res.send("Ayuda")
