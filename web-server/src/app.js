@@ -1,7 +1,10 @@
+
 const hbs = require("hbs")
 const path = require("path")
 const express = require("express") 
 const app = express()
+const geocode = require("./utils/geocode")
+const forecast = require("./utils/forecast")
 
 //https://expressjs.com/
 
@@ -70,19 +73,30 @@ app.get("/products", (req, res) =>{
     })
 })
 
-app.get("/weather", (req, res) =>{
-
-    if(!req.query.address){
-        res.send({
+app.get("/weather", (req, res) => {
+    if (!req.query.address)
+        return res.send({
             error: "Invalid address"
-        })
-    } else {
-        res.send({
-            forecast: req.query.address
-        })
-    }
-    console.log(req.query)
-})
+        });
+
+    geocode(req.query.address, (error, coordinates) => {
+        if (error) {
+            return res.send({ error });
+        }
+
+        forecast(coordinates, (error, { temperatura, humedad, ubicacion }) => {
+            if (error) {
+                return res.send({ error });
+            }
+            res.send({
+                forecast: { temperatura, humedad },
+                ubicacion,
+                address: req.query.address
+            });
+        });
+    });
+});
+
 
 app.get("/help/*", (req, res) =>{
     res.render("help2", {

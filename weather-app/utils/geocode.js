@@ -13,7 +13,7 @@ const geocode = (address, callback) => {
           const lng = response.data.results[0].geometry.lng;
           const ubicacion = response.data.results[0].formatted;
           // se llama un callback en forma de objeto porque esa es la forma en que se estan recibiendo los datos 
-          callback(null, { lat, lng, ubicacion });
+          callback({ lat, lng, ubicacion });
         } else {
           // si la respuesta no encuentra los datos validos
           callback("Direccion no encontrada", null);
