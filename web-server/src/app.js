@@ -40,7 +40,7 @@ hbs.registerPartials(partialsPath)
 
 app.get("", (req, res) => { // aqui se esta renderizando un documento html (hbo template engine module), la estructura de este documento se toma como plantilla para poderle insertar codigo en donde sea deseado. 
     res.render("index", {
-        title: "weather app",
+        title: "Weather app",
         name: "tomas"
     }) // la funcion render lleva como parametros la ruta/nombre del archivo y los valores a introducir
 })
@@ -76,7 +76,7 @@ app.get("/products", (req, res) =>{
 app.get("/weather", (req, res) => {
     if (!req.query.address)
         return res.send({
-            error: "Invalid address"
+            error: "Please insert an address"
         });
 
     geocode(req.query.address, (error, coordinates) => {

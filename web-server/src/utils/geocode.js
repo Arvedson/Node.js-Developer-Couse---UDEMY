@@ -16,12 +16,13 @@ const geocode = (address, callback) => {
           callback(null, { lat, lng, ubicacion });
         } else {
           // si la respuesta no encuentra los datos validos
-          callback("Direccion no encontrada", null);
+          callback("Address not found, please try another", null);
         }
       })
       .catch(error => {
-        // en caso de desconeccion y no haya respuesta alguna axios dara su propio statement
-        callback(error.message, null);
+        // en caso de desconeccion y no haya respuesta alguna axios dara su propio statement error.message
+        callback("Please insert a valid address or check your internet connection", null);
+        console.log(error.message)
       });
 }
 
